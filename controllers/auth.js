@@ -74,7 +74,7 @@ export const verifyEmail = (req, res) => {
        if (user.status === '1') return res.status(400).json("User is already verified");
 
        // Update user status to verified and clear the verification token
-       const q = "UPDATE users SET status='1', verification_token=NULL WHERE id=?";
+       const q = "UPDATE users SET status='1'  WHERE id=?";
        db.query(q, [user.id], (err, data) => {
            if (err) return res.json(err);
            res.status(200).json("Email verified successfully");
@@ -82,7 +82,6 @@ export const verifyEmail = (req, res) => {
    });
 };
 export const login = (req,res)=>{
-   console.log(req)
    const q="select * from users where email=? and status='1'"
    console.log(q)
    db.query(q,[req.body.username],(err,data)=>{
