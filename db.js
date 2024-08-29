@@ -11,6 +11,4 @@ export const db=mysql.createConnection({
     connectTimeout: 10000,
     waitForConnections: true,
     queueLimit: 0
-
-    
 })

@@ -59,6 +59,7 @@ export const register = (req, res) => {
      console.error('Error sending email:', error);
    }
 };
+
 export const verifyEmail = (req, res) => {
    const { token } = req.query;
    console.log(req);
@@ -81,9 +82,10 @@ export const verifyEmail = (req, res) => {
        });
    });
 };
+
 export const login = (req,res)=>{
    const q="select * from users where email=? and status='1'"
-   console.log(q)
+   
    db.query(q,[req.body.username],(err,data)=>{
       if(err) return res.json(err)
       if(data.length===0) return res.status(404).json("User not found!")
@@ -106,4 +108,12 @@ export const logout = (req,res)=>{
       sameSite:'none',
       secure:true
     }).status(200).json("User has been logout")
+}
+
+export const uploadDocs=(req,res)=>{
+   const q="update users set `files_uploaded` ='1' where id=? and status='1';"
+   db.query(q,[req.body.userid],(err,data)=>{
+    if(err) return res.json(err)
+    res.status(200).json("files Uploaded");
+   })
 }
